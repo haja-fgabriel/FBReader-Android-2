@@ -19,7 +19,7 @@ dependencies {
     api project(':SuperToasts')
     api project(':AmbilWarna')
     api project(':zip-amse')
-    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     implementation('com.googlecode.json-simple:json-simple:1.1.1') {
         exclude group: 'junit', module: 'junit'
     }
@@ -27,7 +27,6 @@ dependencies {
     implementation files('libs/httpmime-4.2.5.jar')
     implementation files('libs/pdfparse.jar')
 }
-
 
 android {
 	compileSdkVersion project.ext.globalCompileSdkVersion
