@@ -7,4 +7,5 @@
 	android:ellipsize="marquee"
 	android:marqueeRepeatLimit="marquee_forever"
 	android:gravity="center_vertical|left"
+  android:textColor="#FFFFFF"
 />

@@ -122,6 +122,7 @@
 				android:layout_height="wrap_content"
 				android:padding="10dp"
 				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="#FFFFFF"
 			/>
 			<TextView
 				android:id="@+id/network_book_extra_links_title"

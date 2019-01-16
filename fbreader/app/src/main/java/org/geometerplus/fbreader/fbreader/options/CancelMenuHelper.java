@@ -87,9 +87,9 @@ public class CancelMenuHelper {
 		if (ShowLibraryItemOption.getValue()) {
 			list.add(new ActionDescription(ActionType.library, null));
 		}
-		if (ShowNetworkLibraryItemOption.getValue()) {
-			list.add(new ActionDescription(ActionType.networkLibrary, null));
-		}
+//		if (ShowNetworkLibraryItemOption.getValue()) {
+//			list.add(new ActionDescription(ActionType.networkLibrary, null));
+//		} // removed by aplicatii.romanesti
 		//aplicatii.romanesti
 		if (ShowSearchLocalLibraryItemOption.getValue()) {
 			list.add(new ActionDescription(ActionType.searchLocalLibrary, null));

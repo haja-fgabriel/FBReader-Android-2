@@ -48,6 +48,7 @@
 			android:layout_alignParentTop="true"
 			android:singleLine="false"
 			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="#FFFFFF"
 			android:gravity="center_vertical|left"
 		/>
 		<TextView

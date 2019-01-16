@@ -15,6 +15,7 @@
 		android:paddingRight="8dp"
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="#FFFFFF"
 		android:ellipsize="marquee"
 		android:marqueeRepeatLimit="marquee_forever"
 	/>

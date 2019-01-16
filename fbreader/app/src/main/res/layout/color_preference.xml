@@ -24,6 +24,7 @@
 		android:layout_marginLeft="13dip"
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="#FFFFFF"
 	/>
 	<View
 		android:layout_width="fill_parent"

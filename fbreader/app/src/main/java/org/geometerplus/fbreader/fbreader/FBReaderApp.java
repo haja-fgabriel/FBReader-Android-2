@@ -355,7 +355,7 @@ public final class FBReaderApp extends ZLApplication implements IBookCollection.
 					+ ", on SDCard (cfg db): " + Integer.toString(verFromCfg));
 
 		} catch (Exception e) {
-			Log.e("SDCardError", e.getMessage());
+			Log.e("Books Versions", e.getMessage());
 			// TO DO - if SDCard Error, we should return false, because it
 			// doesn't make sense to try to copy.
 		}
@@ -433,7 +433,7 @@ public final class FBReaderApp extends ZLApplication implements IBookCollection.
 
 	// TODO - must clean this up once we agree that we DO NOT want to copy books to SDCard...
 	public void copyFileOrDir(String dataSDCardRelativePath, AssetManager assetManager, ProgressDialog dialog) {
-		Log.i("copyBooksToSDCard","!!!Found book(s), processing them... ");
+		//Log.i("copyBooksToSDCard","!!!Found book(s), processing them... ");
 		String assets[] = null;
 		final String apkSrcAssetsdataSDCardPathRoot = "data/SDCard";
 		String dataRootAssetsRelativePath = apkSrcAssetsdataSDCardPathRoot

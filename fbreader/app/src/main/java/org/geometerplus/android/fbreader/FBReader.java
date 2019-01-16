@@ -29,6 +29,7 @@ import android.app.SearchManager;
 import android.content.*;
 import android.net.Uri;
 import android.os.*;
+import android.util.Log;
 import android.view.*;
 import android.widget.RelativeLayout;
 
@@ -98,6 +99,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 	private String myMenuLanguage;
 
 	final DataService.Connection DataConnection = new DataService.Connection();
+	//aplicatii.romanesti - TODO - try to remove above network connection requirement
 
 	volatile boolean IsPaused = false;
 	private volatile long myResumeTimestamp;
@@ -245,7 +247,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 		//aplicatii.romanesti start
 		Config.Instance().runOnConnect(new Runnable() {
 			public void run() {
-				System.out.println("copyBooksToSDCard: - config service bound");
+                Log.i("copyBooksToSDCard","config service bound");
 				configServiceAvailable.countDown();
 				// this is needed to make sure that the config service is started before we try
 				// to check whether books have been initialized or not
@@ -262,7 +264,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 						myFBReaderApp.copyBooksToSDCard(FBReader.this); //aplicatii.romanesti:  passing context
 //					}
 				} catch (InterruptedException e) {
-					System.out.println("A problem occurred while waiting for the config service to become available.");
+                    Log.e("copyBooksToSDCard","A problem occurred while waiting for the config service to become available.");
 				}
 			}
 		});
