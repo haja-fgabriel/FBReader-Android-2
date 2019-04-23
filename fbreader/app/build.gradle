@@ -29,6 +29,22 @@ dependencies {
 }
 
 android {
+	Properties prop = new Properties()
+	def propertiesFile = project.rootProject.file('local.properties')
+	if (propertiesFile.exists()) {
+		prop.load(propertiesFile.newDataInputStream())
+	}
+	signingConfigs {
+		release {
+			keyAlias prop.getProperty('k.keyAlias')
+			storeFile file(prop['k.storeFile'])
+			keyPassword prop.getProperty('k.keyPassword')
+			storePassword prop.getProperty('k.storePassword')
+		}
+	}
+}
+
+android {
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 	useLibrary 'org.apache.http.legacy'
