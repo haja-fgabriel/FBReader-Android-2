@@ -69,6 +69,12 @@ android {
         buildConfigField "String", "FBNETWORK_SECRET", "${FBREADER_ORG_FBNETWORK_SECRET}"
         applicationId 'org.geometerplus.zlibrary.ui.android.aplicatii.romanesti'
         signingConfig signingConfigs.release
+
+		externalNativeBuild { //parallel ndk builds; decrease the value or remove if dependency errors
+			ndkBuild {
+				arguments "-j6"
+			}
+		}
     }
 
 	sourceSets {
@@ -76,7 +82,7 @@ android {
 		main.java.srcDirs = ['src/main/java']
 		main.res.srcDirs = ['src/main/res']
 		main.assets.srcDirs = ['src/main/assets']
-		main.jniLibs.srcDirs = ['src/main/libs']
+		//main.jniLibs.srcDirs = ['src/main/libs'] //https://stackoverflow.com/questions/44954122/more-than-one-file-was-found-with-os-independent-path-lib-x86-libusb-so
 		main.jni.srcDirs = []
 	}
 	buildTypes {
@@ -153,14 +159,20 @@ android {
         // // }
     }
 
-	task ndkBuild(type: Exec) {
-		def ndkDir = project.android.ndkDirectory.absolutePath
-		commandLine "$ndkDir/ndk-build.cmd", '-C', file('src/main/jni').absolutePath
+	externalNativeBuild {
+		ndkBuild {
+			path 'src/main/jni/Android.mk'
+		}
 	}
 
-	tasks.withType(JavaCompile) {
-		compileTask -> compileTask.dependsOn ndkBuild
-	}
+//	task ndkBuild(type: Exec) {
+//		def ndkDir = project.android.ndkDirectory.absolutePath
+//		commandLine "$ndkDir/ndk-build.cmd", '-C', file('src/main/jni').absolutePath
+//	}
+//
+//	tasks.withType(JavaCompile) {
+//		compileTask -> compileTask.dependsOn ndkBuild
+//	}
 
 	clean {
 		delete 'src/main/obj'
