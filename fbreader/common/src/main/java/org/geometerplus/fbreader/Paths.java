@@ -48,18 +48,23 @@ public abstract class Paths {
 		new ZLStringOption("Files", "TemporaryDirectory", "");
 
 	public static ZLStringOption TempDirectoryOption(Context context) {
-		if ("".equals(ourTempDirectoryOption.getValue())) {
-			ourTempDirectoryOption.setValue(internalTempDirectoryValue(context));
-		}
+		//if ("".equals(ourTempDirectoryOption.getValue()) //replaced by aplicatii.romanesti to force no sdcard!
+//		String x=Environment.getExternalStorageDirectory().getPath(); //temp test
+//		if ("".equals(ourTempDirectoryOption.getValue()) || ourTempDirectoryOption.getValue().startsWith(Environment.getExternalStorageDirectory().getPath())) {
+//			ourTempDirectoryOption.setValue(internalTempDirectoryValue(context));
+//		}
+        ourTempDirectoryOption.setValue(internalTempDirectoryValue(context));
 		return ourTempDirectoryOption;
 	}
 
 	private static String internalTempDirectoryValue(Context context) {
 		String value = null;
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-			value = getExternalCacheDirPath(context);
-		}
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+//			value = getExternalCacheDirPath(context);
+//		}// aplicatii.romanesti - no longer required
+		value = getExternalCacheDirPath(context);
 		return value != null ? value : (mainBookDirectory() + "/.FBReader");
+		//it should never do the append of /.FBReader, as we should never get null any longer - aplicatii.romanesti
 	}
 
 	@TargetApi(Build.VERSION_CODES.FROYO)
@@ -209,7 +214,7 @@ public abstract class Paths {
 				final String value = ourTempDirectoryOption.getValue();
 				if (!"".equals(value)) {
 					return value;
-				}
+				}//aplicatii.romanesti - this is for caching, so we don't evaluate again and again system temp folder.
 				return internalTempDirectoryValue(appContext);
 			}
 
