@@ -25,6 +25,7 @@ fbreader/common/common.iml
 fbreader/app/app.iml
 fbreader/api/api.iml
 FBReader-Android-Forked.iml
+*.iml
 *.keystore
 third-party/AmbilWarna/AmbilWarna.iml
 fbreader/text-formats/

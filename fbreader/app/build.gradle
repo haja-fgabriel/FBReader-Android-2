@@ -92,11 +92,11 @@ android {
 			versionNameSuffix '-DEBUG'
             signingConfig signingConfigs.release
 		}
-//		release {
-//			minifyEnabled false
-//			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
-//			signingConfig signingConfigs.release
-//		}
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+			signingConfig signingConfigs.release
+		}
 	}
 }
 
