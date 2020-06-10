@@ -114,6 +114,7 @@ android {
             }
             applicationId 'org.geometerplus.zlibrary.ui.android.aplicatii.romanesti'
             signingConfig signingConfigs.release
+			// useAndroidX true
         }
         // // arm { //obsolete
         // // 	dimension 'abi'
@@ -164,6 +165,7 @@ android {
 			path 'src/main/jni/Android.mk'
 		}
 	}
+    // ndkVersion '21.0.6113669'
 
 //	task ndkBuild(type: Exec) {
 //		def ndkDir = project.android.ndkDirectory.absolutePath

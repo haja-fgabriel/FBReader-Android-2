@@ -7,13 +7,15 @@ echo "starting at ~$DATE_START"
 ### VERIFY WE ARE IN THE RIGHT FOLDER:
 cd ../
 BUILD_FOLDER="./" # MIGHT NOT WORK IF YOU CHANGE IT
-[[ ! -s ${BUILD_FOLDER}/fbreader/app/VERSION ]] && echo "we are not in the root folder; make sure you run this script from scripts folder, like this: ./${0}; Now exiting" && exit 2
+[[ ! -s ${BUILD_FOLDER}/fbreader/app/VERSION ]] && echo "we are not in the scripts folder; make sure you run this script from scripts folder, like this: ./$(basename ${0}) ; Now exiting" && exit 2
 
 ### VERIFY WE ARE IN THE RIGHT BRANCH:
 export GIT_BRANCH=$(git branch | grep '*' | cut -d' ' -f2)
 [[ $GIT_BRANCH != "bibliotecaortodoxa" ]] && echo "We are not in the bibliotecaortodoxa branch. For other branches use build_all_molitfelnic_based.sh which calls dockerbuild.sh" && exit 3
 
 ### VERIFY BUILD NUMBERS MATCH:
+echo "verifying versions in these 2 files"
+echo "vi ../${BUILD_FOLDER}/fbreader/app/VERSION ../${BUILD_FOLDER}/fbreader/app/src/main/java/org/geometerplus/android/fbreader/libraryService/SQLiteBooksDatabase.java"
 VV=$(cat ${BUILD_FOLDER}/fbreader/app/VERSION | cut -d"." -f3)
 VSQL=$(grep 'currentVersion =' ${BUILD_FOLDER}/fbreader/app/src/main/java/org/geometerplus/android/fbreader/libraryService/SQLiteBooksDatabase.java| cut -d"=" -f2 | cut -d";" -f1 | cut -d" " -f2)
 
@@ -22,7 +24,9 @@ if [[ $VV -ne $VSQL ]]; then
   exit 9
 fi
 
+echo "Version: ${VV}"
 NAME=branch_bibliotecaortodoxa_version_${VV}_at_${DATE_START}
+echo "Name: $NAME"
 
 ### FETCH SIGNING KEY
 cp ~/777/aplicatii.romanesti-release-key.keystore .
@@ -51,6 +55,11 @@ set +x
 ### ECHO BUILDED PATHS
 ls -la fbreader/app/build/outputs/apk/fat/release/app-fat-release.apk | tee -a $NAME.log
 cp -f fbreader/app/build/outputs/apk/fat/release/app-fat-release.apk ~/${NAME}.apk
+ln -sf ~/${NAME}.apk ~/branch_x_latest.apk
+
+echo "Version: ${VV}"
+echo "Name: $NAME"
+echo "Path: ~/${NAME}.apk"
 
 ### PERFORMANCE CALCS
 DATE_END_EPOCH=`date +%s`
@@ -60,5 +69,5 @@ DATE_END=`date +'%Y%m%d_%H%M%S'` # EPOCH Does not have timezone, so not using
 echo "Build took $DATE_HUMAN_DIFF , ended at: ~$DATE_END (was started at ~$DATE_START)" | tee -a $NAME.log
 
 echo "Trying also ftp upload using ./ftp_upload_apk_to_phone.sh"
-./scripts/ftp_upload_apk_to_phone.sh
+./scripts/ftp_upload_apk_to_phone.sh ${NAME}.apk
 
