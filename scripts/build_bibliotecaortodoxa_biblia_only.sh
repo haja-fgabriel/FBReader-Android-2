@@ -38,7 +38,10 @@ cp ~/777/aplicatii.romanesti-release-key.keystore .
 mkdir -p fbreader/app/src/main/assets/data/SDCard/Books/
 rm -rf fbreader/app/src/main/assets/data/SDCard/Books/*
 #cd fbreader/app/src/main/assets/data/SDCard
-rm -rf fbreader/app/src/main/assets/data/SDCard/Books
+#rm -rf fbreader/app/src/main/assets/data/SDCard/Books
+#cp /home/aplicatii-romanesti/Books/Biblia/* fbreader/app/src/main/assets/data/SDCard/Books/
+#cp /home/aplicatii-romanesti/Books/Scrieri/Vietile* fbreader/app/src/main/assets/data/SDCard/Books/
+#cp -r /home/aplicatii-romanesti/Books/* fbreader/app/src/main/assets/data/SDCard/Books/
 unzip -q '/home/aplicatii-romanesti/ToateCartile_EPUB_latest.zip' -d fbreader/app/src/main/assets/data/SDCard/
 cp -r /home/aplicatii-romanesti/Books_with_HowTO/* fbreader/app/src/main/assets/data/SDCard/Books/
 #cd -
