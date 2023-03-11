@@ -47,11 +47,25 @@ cp -r /home/aplicatii-romanesti/Books_with_HowTO/* fbreader/app/src/main/assets/
 #cd -
 
 ### ACTUAL BUILD
-docker rm -f fb || true
+docker rm -f fb 2>/dev/null || true
 cp local.properties.docker local.properties
-###docker run --name fb -ti -v `pwd`/FBReader-Android-2:/p mingc/android-build-box:1.11.1 bash -c 'cd /p/ && ./gradlew  --gradle-user-home=/p/.gradle/ clean assembleRelease' | tee -a $GIT_BRANCH.log
-set -x
-docker run --name fb -ti -v `pwd`:/p mingc/android-build-box:1.15.0 bash -c 'cd /p/ && ./gradlew --gradle-user-home=/p/.gradle/ assembleRelease' | tee -a $NAME.log
+echo "do optional cleanup"
+sleep 2
+sudo rm -rf ./.gradle/ 2>/dev/null || true
+docker run --name fb -ti -v `pwd`:/p mingc/android-build-box:1.25.0 bash -c 'cd /p/ && ./gradlew  --gradle-user-home=/p/.gradle/ clean' | tee -a $GIT_BRANCH.log
+docker rm -f fb 2>/dev/null || true
+sudo find . -type d -name ".cxx" -exec rm -r {} \; || true
+sudo find . -type d -name ".externalNativeBuild" -exec rm -r {} \; || true
+sudo rm -rf ./.gradle/ 2>/dev/null || true
+docker rm -f fb 2>/dev/null || true
+NDK_VER=$(grep globalNdkVersion build.gradle | cut -d"=" -f2 | cut -d'"' -f2)
+ANDROID_NDK=/opt/android-sdk/ndk/$NDK_VER
+echo "actual build starts now"
+sleep 1
+docker run --name fb -ti -e JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ -e ANDROID_NDK=$ANDROID_NDK -e ANDROID_NDK_HOME=$ANDROID_NDK -e ANDROID_NDK_ROOT=$ANDROID_NDK -v `pwd`:/p mingc/android-build-box:1.25.0 bash -c 'cd /p/ && ./gradlew --gradle-user-home=/p/.gradle/ assembleRelease' | tee -a $NAME.log
+#sudo rm -rf FBReader-Android-2-dev/fbreader/app/build/generated/not_namespaced_r_class_sources/* || true #so we will be able to use Android Studio as well afterwards...
+sudo rm -rf ./fbreader/app/build/generated/not_namespaced_r_class_sources/* 2>/dev/null || true #so we will be able to use Android Studio as well afterwards...
+sudo chown -R aplicatii-romanesti:aplicatii-romanesti `pwd`
 set +x
 # --rm
 

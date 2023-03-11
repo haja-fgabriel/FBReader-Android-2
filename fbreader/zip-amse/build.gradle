@@ -7,6 +7,8 @@ dependencies {
 android {
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
+	ndkVersion project.ext.globalNdkVersion
+
 	lintOptions {
 		abortOnError false
 	}
