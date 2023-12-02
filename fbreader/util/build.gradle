@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
+	namespace = 'org.fbreader.util'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 

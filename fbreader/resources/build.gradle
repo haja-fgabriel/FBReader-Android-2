@@ -5,6 +5,7 @@ dependencies {
 }
 
 android {
+	namespace = 'org.fbreader.resources'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 

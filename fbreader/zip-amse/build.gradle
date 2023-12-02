@@ -5,6 +5,7 @@ dependencies {
 }
 
 android {
+	namespace = 'org.amse.ys.zip'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 	ndkVersion project.ext.globalNdkVersion

@@ -5,6 +5,7 @@ dependencies {
 }
 
 android {
+	namespace = 'group.pals.android.lib.ui.filechooser'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 

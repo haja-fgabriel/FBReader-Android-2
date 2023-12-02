@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
+	namespace = 'com.github.johnpersano.supertoasts'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 

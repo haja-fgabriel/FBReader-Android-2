@@ -17,14 +17,13 @@ export GIT_BRANCH=$(git branch | grep '*' | cut -d' ' -f2)
 echo "verifying versions in these 2 files"
 echo "vi ../${BUILD_FOLDER}/fbreader/app/VERSION ../${BUILD_FOLDER}/fbreader/app/src/main/java/org/geometerplus/android/fbreader/libraryService/SQLiteBooksDatabase.java"
 VV=$(cat ${BUILD_FOLDER}/fbreader/app/VERSION | cut -d"." -f3)
-VSQL=$(grep 'currentVersion =' ${BUILD_FOLDER}/fbreader/app/src/main/java/org/geometerplus/android/fbreader/libraryService/SQLiteBooksDatabase.java| cut -d"=" -f2 | cut -d";" -f1 | cut -d" " -f2)
-
+#from .65, this is dynamic, so below test no longer needed
+#VSQL=$(grep 'currentVersion =' ${BUILD_FOLDER}/fbreader/app/src/main/java/org/geometerplus/android/fbreader/libraryService/SQLiteBooksDatabase.java| cut -d"=" -f2 | cut -d";" -f1 | cut -d" " -f2)
 sleep 3
-
-if [[ $VV -ne $VSQL ]]; then
-  echo "ERROR !!!!  $VV != $VSQL -> FIX VERSIONS!!!"
-  exit 9
-fi
+#if [[ $VV -ne $VSQL ]]; then
+#  echo "ERROR !!!!  $VV != $VSQL -> FIX VERSIONS!!!"
+#  exit 9
+#fi
 
 echo "Version: ${VV}"
 NAME=branch_bibliotecaortodoxa_version_${VV}_at_${DATE_START}

@@ -1,6 +1,6 @@
 buildscript {
 	repositories {
-		jcenter()
+		// jcenter() //deprecated
 		mavenCentral()
 		google()
 	}
@@ -45,9 +45,15 @@ android {
 }
 
 android {
+	namespace = 'org.geometerplus.zlibrary.ui.android.aplicatii.romanesti'
 	compileSdkVersion project.ext.globalCompileSdkVersion
 	buildToolsVersion project.ext.globalBuildToolsVersion
 	useLibrary 'org.apache.http.legacy'
+
+	buildFeatures {
+		buildConfig true
+        aidl true
+    }
 
 	lintOptions {
 		abortOnError false
