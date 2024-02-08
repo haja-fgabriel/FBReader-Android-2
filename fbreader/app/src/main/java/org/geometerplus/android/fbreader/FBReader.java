@@ -630,7 +630,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 			}
 		});
 
-		registerReceiver(myBatteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		registerReceiver(myBatteryInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED), RECEIVER_EXPORTED);
 		IsPaused = false;
 		myResumeTimestamp = System.currentTimeMillis();
 		if (OnResumeAction != null) {
@@ -639,7 +639,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 			action.run();
 		}
 
-		registerReceiver(mySyncUpdateReceiver, new IntentFilter(FBReaderIntents.Event.SYNC_UPDATED));
+		registerReceiver(mySyncUpdateReceiver, new IntentFilter(FBReaderIntents.Event.SYNC_UPDATED), RECEIVER_EXPORTED);
 
 		SetScreenOrientationAction.setOrientation(this, getZLibrary().getOrientationOption().getValue());
 		if (myCancelIntent != null) {
@@ -962,7 +962,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 					myWakeLockToCreate = false;
 					myWakeLock =
 						((PowerManager)getSystemService(POWER_SERVICE))
-							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader");
+							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader:aplicatiiromanesti");
 					myWakeLock.acquire();
 				}
 			}

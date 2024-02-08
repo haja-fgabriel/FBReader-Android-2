@@ -24,4 +24,8 @@ android {
 		//maxSdkVersion project.ext.globalMaxSdkVersion
 		targetSdkVersion project.ext.globalTargetSdkVersion
 	}
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }

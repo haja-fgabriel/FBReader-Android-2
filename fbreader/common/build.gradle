@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 dependencies {
 	api project(':api')
 	api project(':SuperToasts')
+//	implementation('com.github.johnpersano:supertoasts:1.2')
 	api project(':zip-amse')
 	implementation files('libs/LingvoIntegration_2.5.2.12.jar')
 	implementation files('libs/open-dictionary-api-1.2.1.jar')
@@ -38,5 +39,9 @@ android {
 	}
     buildFeatures {
         aidl true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
