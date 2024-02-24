@@ -385,6 +385,8 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 	public void onOptionsMenuClosed(Menu menu) {
 		super.onOptionsMenuClosed(menu);
 		setStatusBarVisible(false);
+		// Solution for issue on Android 14 (SDK34) where the menu shows only once after first start. Note also the change in the setupMenu below.
+		invalidateOptionsMenu();
 	}
 
 	@Override
@@ -871,9 +873,12 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 
 	private void setupMenu(Menu menu) {
 		final String menuLanguage = ZLResource.getLanguageOption().getValue();
+		// Solution for issue on Android 14 (SDK34) where the menu shows only once after first start. Note also the invalidateOptionsMenu change above.
+		/*
 		if (menuLanguage.equals(myMenuLanguage)) {
 			return;
 		}
+  		*/
 		myMenuLanguage = menuLanguage;
 
 		menu.clear();
