@@ -385,6 +385,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 	public void onOptionsMenuClosed(Menu menu) {
 		super.onOptionsMenuClosed(menu);
 		setStatusBarVisible(false);
+		invalidateOptionsMenu();
 	}
 
 	@Override
@@ -871,9 +872,6 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 
 	private void setupMenu(Menu menu) {
 		final String menuLanguage = ZLResource.getLanguageOption().getValue();
-		if (menuLanguage.equals(myMenuLanguage)) {
-			return;
-		}
 		myMenuLanguage = menuLanguage;
 
 		menu.clear();
