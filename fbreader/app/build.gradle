@@ -20,7 +20,8 @@ dependencies {
 //	implementation('com.github.johnpersano:supertoasts:1.2')
     api project(':AmbilWarna')
     api project(':zip-amse')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+	//implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01' - working, but playstore was giving warnings
     implementation('com.googlecode.json-simple:json-simple:1.1.1') {
         exclude group: 'junit', module: 'junit'
     }
