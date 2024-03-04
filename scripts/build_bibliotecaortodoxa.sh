@@ -64,6 +64,10 @@ echo "Version: ${VV}"
 echo "Name: $NAME"
 echo "Path: ~/${NAME}.apk"
 
+### CHOWN/CLEANUP ALL build directories (so we can build from IDE also)
+find . -name build -type d | sudo chown -R $(id -u):$(id -g)
+#find . -name build -type d | sudo xargs rm -rf
+
 ### PERFORMANCE CALCS
 DATE_END_EPOCH=`date +%s`
 DATE_DIFF=`expr $DATE_END_EPOCH - $DATE_START_EPOCH`
