@@ -47,7 +47,10 @@ docker rm -f fb || true
 cp local.properties.docker local.properties
 ###docker run --name fb -ti -v `pwd`/FBReader-Android-2:/p mingc/android-build-box:1.11.1 bash -c 'cd /p/ && ./gradlew  --gradle-user-home=/p/.gradle/ clean assembleRelease' | tee -a $GIT_BRANCH.log
 set -x
-docker run --name fb -ti -v `pwd`:/p mingc/android-build-box:1.15.0 bash -c 'cd /p/ && ./gradlew --gradle-user-home=/p/.gradle/ assembleRelease' | tee -a $NAME.log
+#docker run --name fb -ti -v `pwd`:/p $(cat ./scripts/dockerBuilderImage.txt) bash -c 'cd /p/ && ./gradlew --gradle-user-home=/p/.gradle/ assembleRelease' | tee -a $NAME.log
+export BUILD_FOLDER=${BUILD_FOLDBUILD_FOLDER:-`pwd`}
+# shellcheck disable=SC2046
+docker run --rm --name fb -ti -v "${BUILD_FOLDER}":/p -v "${BUILD_FOLDER}/../Android/Sdk":"/opt/android-sdk/" $(cat "${BUILD_FOLDER}/scripts/dockerBuilderImage.txt") bash -c 'cd /p/ && ./gradlew  --gradle-user-home=/p/.gradle/ bundleRelease assembleRelease' | tee -a $NAME.log
 sudo rm -rf FBReader-Android-2-dev/fbreader/app/build/generated/not_namespaced_r_class_sources/* || true #so we will be able to use Android Studio as well afterwards...
 set +x
 # --rm
@@ -60,9 +63,21 @@ ls -la fbreader/app/build/outputs/apk/fat/release/app-fat-release.apk | tee -a $
 cp -f fbreader/app/build/outputs/apk/fat/release/app-fat-release.apk ~/${NAME}.apk
 ln -sf ~/${NAME}.apk ~/branch_x_latest.apk
 
+## debug symbols
+ls -la fbreader/app/build/outputs/native-debug-symbols/fatRelease/native-debug-symbols.zip | tee -a $NAME.log
+cp -pf fbreader/app/build/outputs/native-debug-symbols/fatRelease/native-debug-symbols.zip ~/${NAME}-native-debug-symbols.zip | tee -a $NAME.log
+ln -sf ~/${NAME}-native-debug-symbols.zip ~/branch_x_latest-native-debug-symbols.zip || true
+
+
 echo "Version: ${VV}"
 echo "Name: $NAME"
+echo "Path: ~/${NAME}*"
 echo "Path: ~/${NAME}.apk"
+
+### CHOWN/CLEANUP ALL build directories (so we can build from IDE also)
+find . -name build -type d | xargs sudo chown -R $(id -u):$(id -g)
+find . -name release -type d | xargs sudo chown -R $(id -u):$(id -g)
+#find . -name build -type d | sudo xargs rm -rf
 
 ### PERFORMANCE CALCS
 DATE_END_EPOCH=`date +%s`

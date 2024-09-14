@@ -20,7 +20,8 @@ dependencies {
 //	implementation('com.github.johnpersano:supertoasts:1.2')
     api project(':AmbilWarna')
     api project(':zip-amse')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+	//implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01' - working, but playstore was giving warnings
     implementation('com.googlecode.json-simple:json-simple:1.1.1') {
         exclude group: 'junit', module: 'junit'
     }
@@ -100,7 +101,20 @@ android {
             signingConfig signingConfigs.release
 		}
 		release {
+			// https://developer.android.com/build/shrink-code#groovy
+			// Enables code shrinking, obfuscation, and optimization for only
+			// your project's release build type. Make sure to use a build
+			// variant with `debuggable false`.
 			minifyEnabled false
+
+			// Enables resource shrinking, which is performed by the
+			// Android Gradle plugin.
+			shrinkResources false  // force R8 or ProGuard to be disabled.
+			// to remove optimizations for sure, I've also added 2 lines in proguard.cfg:
+			// -dontshrink
+			// -dontobfuscate
+			// https://stackoverflow.com/questions/51860843/how-to-turn-off-only-the-obfuscation-in-android-r8
+
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
 			signingConfig signingConfigs.release
 		}
@@ -190,8 +204,8 @@ android {
 		delete 'src/main/libs'
 	}
 	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_7
-		targetCompatibility JavaVersion.VERSION_1_7
+		sourceCompatibility JavaVersion.VERSION_11
+		targetCompatibility JavaVersion.VERSION_11
 	}
 }
 
